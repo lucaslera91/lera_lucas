@@ -10,4 +10,11 @@ function funcion2() {
 }
 
 funcion2()
-    .then(res => console.log(res))
+    .then(
+        function(value) {return "Exito"},
+        function (error) {return "Error"}
+    );
+
+console.log(funcion2())
+        
+
