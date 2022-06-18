@@ -12,3 +12,5 @@ fs.open('./primerTexto.txt', 'w', function (err){
 fs.writeFileSync()
 
 fs.appendFileSync()
+
+fs.writeFileSync('./segundtoTexto.txt', 'Testos', )
