@@ -1,2 +1,3 @@
 {"title":"Nombre del producto","price":"Precio","thumbnail":"Url Imagen","id":1};
 {"title":"Nombre del producto","price":"Precio","thumbnail":"Url Imagen","id":2};
+{"title":"Nombre del producto","price":"Precio","thumbnail":"Url Imagen","id":3};
