@@ -53,7 +53,7 @@ const manageData = async (obj, file) => {
             obj.id = 1
             await fs.promises.appendFile(file, `${JSON.stringify(obj)};\n`)
         }
-        
+
     } catch (error) {
         console.log(error)
     }
@@ -129,13 +129,13 @@ class Contenedor {
 }
 
 const prueba = new Contenedor('Prueba')
-prueba.save(
-    {
-        title: 'Nombre del producto',
-        price: 'Precio',
-        thumbnail: 'Url Imagen'
-    }
-)
+//prueba.save(
+//    {
+//        title: 'Nombre del producto',
+//        price: 'Precio',
+//        thumbnail: 'Url Imagen'
+//    }
+//)
 
 //prueba.getById(9)
 
@@ -144,3 +144,10 @@ prueba.save(
 //prueba.deleteById(11)
 
 //prueba.deleteAll()
+
+var stats = fs.statSync("productos.txt")
+var fileSizeInBytes = stats.size;
+// Convert the file size to megabytes (optional)
+var fileSizeInMegabytes = fileSizeInBytes / (1024*1024);
+console.log(fileSizeInBytes)
+console.log(fileSizeInMegabytes)
