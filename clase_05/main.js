@@ -18,12 +18,17 @@ const arrayPrueba = [
 ];
 
 const datosObjetos = (obj) => {
-    const respuesta = {}
-    respuesta.nombres = []
+    const respuesta = {
+        nombres: [],
+        nombres2: '',
+        preciosTotales: 0,
+    }
+
     const precios = []
-    respuesta.preciosTotales = 0
+
     obj.forEach(producto => {
         respuesta.nombres.push(producto.nombre ) 
+        respuesta.nombres2 += (producto.nombre) + '; ' 
         precios.push(producto.precio)
         respuesta.preciosTotales += producto.precio
 
@@ -31,7 +36,7 @@ const datosObjetos = (obj) => {
     respuesta.precioProm = Number((respuesta.preciosTotales / obj.length * 100 / 100).toFixed(2))
     respuesta.precioMax = Math.max(...precios)
     respuesta.precioMim = Math.min(...precios)
-    console.log(...precios)
+    
     console.log(respuesta)
 };
 
