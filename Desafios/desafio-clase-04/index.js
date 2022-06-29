@@ -109,6 +109,7 @@ prueba.save({
   price: "Precio",
   thumbnail: "Url Imagen",
 });
+
 prueba
   .save({
     title: "Nombre del producto",
