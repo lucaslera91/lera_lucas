@@ -15,6 +15,7 @@ api.getProducto(router);
 api.eliminarProducto(router);
 api.modificarProducto(router);
 api.agregarProducto(router);
+api.test(router);
 
 app.use('/api', router)
 

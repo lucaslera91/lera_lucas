@@ -100,5 +100,10 @@ module.exports = class ApiManager {
       }
     });
   }
+  async test(router){
+      router.post('/test' , async (req, res) => {
+          return res.json( req.body );
+      })
+  }
 }
 
