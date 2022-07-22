@@ -12,15 +12,15 @@ module.exports = class ApiManager {
     this.filepath = filepath;
   }
 
-  async getProductos(app) {
-    app.get("/api/productos", async (req, res) => {
+  async getProductos(router) {
+    router.get("/productos", async (req, res) => {
       const data = await getProductos();
       return res.json({ productos: JSON.parse(data).productos });
     });
   }
 
-  async getProducto(app) {
-    app.get("/api/productos/:id", async (req, res) => {
+  async getProducto(router) {
+    router.get("/productos/:id", async (req, res) => {
       const data = await getProductos();
       const productos = JSON.parse(data).productos;
       const producto = productos.filter(
@@ -30,8 +30,8 @@ module.exports = class ApiManager {
     });
   }
 
-  async agregarProducto(app) {
-    app.post("/api/productos", async (req, res) => {
+  async agregarProducto(router) {
+    router.post("/productos", async (req, res) => {
       const data = await getProductos();
       const productos = JSON.parse(data).productos;
       let object = req.body;
@@ -51,8 +51,8 @@ module.exports = class ApiManager {
       return res.json({ productos: productos });
     });
   }
-  async modificarProducto(app) {
-    app.put("/api/productos/:id", async (req, res) => {
+  async modificarProducto(router) {
+    router.put("/productos/:id", async (req, res) => {
       const data = await getProductos();
       const productos = JSON.parse(data).productos;
       let isProducto = false;
@@ -81,8 +81,8 @@ module.exports = class ApiManager {
       }
     });
   }
-  async eliminarProducto(app) {
-    app.delete("/api/productos/:id", async (req, res) => {
+  async eliminarProducto(router) {
+    router.delete("/productos/:id", async (req, res) => {
       const data = await getProductos();
       const productos = JSON.parse(data).productos;
       const listaActualizada = productos.filter(
