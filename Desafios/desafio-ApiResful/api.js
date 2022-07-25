@@ -22,7 +22,10 @@ module.exports = class ApiManager {
     const producto = productos.filter(
       (producto) => Number(producto.id) === Number(req.params.id)
     );
-    return res.json({ productos: producto });
+
+    producto.length == 0 ?
+    res.json({ msg: 'El producto no existe' }):
+    res.json({ productos: producto })
   }
 
   async agregarProducto(req, res) {
