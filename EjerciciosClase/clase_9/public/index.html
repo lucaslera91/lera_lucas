@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coder House Socket</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+      integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="ui container">
+      <div class="ui grid">
+        <div class="column six wide ›">
+            <h1>Mensajes</h1>
+          <div id="post"></div>
+        </div>
+        <div class="column eight wide">
+          <div class="card">
+            <div class="ui container">
+              <h1>Enviar mensaje</h1>
+              <div class="ui form">
+                <div class="field">
+                  <label for="nombre">Nombre</label>
+                  <input type="text" name="nombre" id="nombre" />
+                  <label for="mensaje"></label>
+                  <textarea name="mensaje" id="mensaje"></textarea>
+                  <div class="field">
+                    <button onclick="enviarMensaje()" class="ui priamry button">
+                      Enviar
+                      <i class="send icon"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.socket.io/4.5.0/socket.io.min.js"
+      integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
