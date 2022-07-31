@@ -1,5 +1,5 @@
 
-const productos = [
+let productos = [
     {
       title: "Televisor",
       price: "200 USD",

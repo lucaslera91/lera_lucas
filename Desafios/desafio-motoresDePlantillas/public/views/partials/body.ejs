@@ -1,12 +1,17 @@
 <body>
-  This is body
-  <% users.forEach(function(user){ %>
-    <li>
-        <strong><%=user.name %></strong>
-        <strong><%=user.lastName %></strong>
-    </li>
-  <% }); %>
-  <article>2</article>
-  <article>3</article>
-  <article>4</article>
+  <table>
+    <tr>
+      <th>Nombre producto</th>
+      <th>Precio</th>
+      <th>Icono</th>
+    </tr>
+    <% productos.forEach(function(producto){ %>
+      <tr>
+          <td><%=producto.title %></td>
+          <td><%=producto.price %></td>
+          <td><%=producto.thumbnail %></td>
+      </tr>
+    <% }); %>
+  </table>
+
 </body>

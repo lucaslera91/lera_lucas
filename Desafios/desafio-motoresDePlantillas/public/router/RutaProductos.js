@@ -1,14 +1,14 @@
 const express = require("express");
+const ProductManager = require("../productManager");
 const routerProductos = express.Router();
-const filepath = "productos.txt";
+const filepath = "productos.js";
 
-const ApiManager = require('../api')
-const api = new ApiManager(filepath);
+const productManager = new ProductManager(filepath);
 
-routerProductos.get('/', api.fetchProductos)
-routerProductos.get('/:id', api.getProducto)
-routerProductos.post('/', api.agregarProducto)
-routerProductos.put('/:id', api.modificarProducto)
-routerProductos.delete('/:id', api.eliminarProducto)
+routerProductos.get('/', productManager.fetchProductos)
+routerProductos.get('/:id', productManager.getProducto)
+routerProductos.post('/', productManager.agregarProducto)
+routerProductos.put('/:id', productManager.modificarProducto)
+routerProductos.delete('/:id', productManager.eliminarProducto)
 
 module.exports = routerProductos;

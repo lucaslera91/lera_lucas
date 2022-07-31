@@ -1,6 +1,7 @@
 const fs = require("fs");
 const filepath = "productos.txt";
-
+require('dotenv').config()
+console.log(process.env.RUTAMOTORPRODUCTOS)
 const getProductos = async () => {
   const archivo = await fs.promises.readFile(filepath, "utf-8");
   return archivo;
@@ -13,9 +14,11 @@ module.exports = class ApiManager {
 
   async fetchProductos(req, res) {
     const data = await getProductos();
-    return res.json({ productos: JSON.parse(data).productos });
+    //return res.json({ productos: JSON.parse(data).productos });
+    console.log(JSON.parse(data).productos)
+    return res.render(process.env.RUTAMOTORPRODUCTOS, { productos: JSON.parse(data).productos });
   }
-
+//process.env.RUTAMOTOR
   async getProducto(req, res) {
     const data = await getProductos();
     const productos = JSON.parse(data).productos;
@@ -24,13 +27,15 @@ module.exports = class ApiManager {
     );
 
     producto.length == 0 ?
+    //res.render("productos.pug", { productos: JSON.parse(data).productos })
+    //res.render("productos.pug", { productos: JSON.parse(data).productos });
     res.json({ msg: 'El producto no existe' }):
     res.json({ productos: producto })
   }
 
   async agregarProducto(req, res) {
     const data = await getProductos();
-    const productos = JSON.parse(data).productos;
+    const productos =  JSON.parse(data).productos;
     let object = req.body;
     try {
       const ids = productos.map((producto) => producto.id);
@@ -41,11 +46,14 @@ module.exports = class ApiManager {
         filepath,
         `${JSON.stringify({ productos: productos })}`
       );
+      return res.render(process.env.RUTAMOTORPRODUCTOS, { productos: productos});
     } catch (error) {
       console.log(error);
     }
 
-    return res.json({ productos: productos });
+    //return res.json({ productos: productos });
+    return res.render(process.env.RUTAMOTORPRODUCTOS, { productos: JSON.parse(data).productos });
+
   }
 
   async modificarProducto(req, res) {
@@ -71,7 +79,9 @@ module.exports = class ApiManager {
         filepath,
         `${JSON.stringify({ productos: productosActualizados })}`
       );
-      return res.json({ productos: productosActualizados });
+      //return res.json({ productos: productosActualizados });
+      return res.render(process.env.RUTAMOTORPRODUCTOS, { productos: productosActualizados });
+
     } else {
       return res.json({ msg: "Producto no existe" });
     }
@@ -88,11 +98,12 @@ module.exports = class ApiManager {
         filepath,
         `${JSON.stringify({ productos: listaActualizada })}`
       );
+      return res.render(process.env.RUTAMOTORPRODUCTOS, { productos: listaActualizada });
       return res.json({ productos: listaActualizada });
     } else {
-      return res.json({ msg: "Producto no existe" });
+      //eturn res.json({ msg: "Producto no existe" });
+      return res.render(process.env.RUTAMOTORPRODUCTOS, { msg: 'Productos no existe' });
+
     }
   }
 };
-
-
