@@ -2,7 +2,10 @@ const PORT = 8081;
 const rutaProductos = require("./router/RutaProductos");
 const rutaRegistro = require("./router/RutaRegistro");
 const MessageManager = require("./utils/messageManager");
+const ProductManager = require("./utils/productManager");
 const filepathChat = "chats.txt";
+const filepathProductos = "productos.txt";
+
 const express = require("express");
 const app = express();
 require("dotenv").config();
@@ -20,6 +23,7 @@ app.use("/api/registro", rutaRegistro);
 app.on("Error", (err) => console.log("Error: ", err));
 
 const chatManager = new MessageManager(filepathChat);
+const prodManager = new ProductManager(filepathProductos);
 
 //-- - - - - - - -- SOCKET DATA --- - - - - --- - --  //
 
@@ -37,26 +41,14 @@ socketServer.on("connection", (socket) => {
 
   socket.on("POST_MESSAGE", async (msg) => {
     const addMsg = await chatManager.agregarMensaje(msg);
-    //const listaActualizada = addMsg()
     socketServer.sockets.emit("UPDATE_CHAT", msg);
   });
 
-  socket.on("POST_PRODUCTO", (msg) => {
-    fetch("http://localhost:8081/api/productos")
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-
+  socket.on("POST_PRODUCTO", async (msg) => {
+    await prodManager.agregarProducto(msg)
     socketServer.sockets.emit("UPDATE_PRODUCTO", msg);
   });
 
-  //socket.on("TEST_MESSAGE", (func) => {
-  //  socketServer.sockets.emit("TEST_MESSAGE", func);
-  //});
-  //
-  //socket.on("AUX_MESSAGE", (test) => {
-  //  console.log(test)
-  //  socketServer.sockets.emit("AUX_MESSAGE", test);
-  //});
 });
 
 httpServer.listen(PORT, () => {

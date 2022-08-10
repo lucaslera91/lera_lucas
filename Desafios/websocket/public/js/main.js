@@ -22,12 +22,16 @@ const postMessage = () => {
 socket.on("UPDATE_CHAT", (msg) => {
   appendMsg(msg);
 });
+socket.on("UPDATE_PRODUCTO", (msg) => {
+  console.log('first')
+  appendProducto(msg);
+});
 
 const postProducto = () => {
   console.log("PRODUCTO");
-  const title = document.getElementById("nombre-producto");
-  const price = document.getElementById("precio-producto");
-  const thumbnail = document.getElementById("img-producto");
+  const title = document.getElementById("title");
+  const price = document.getElementById("price");
+  const thumbnail = document.getElementById("thumbnail");
 
   socket.emit("POST_PRODUCTO", {
     title: title.value,
@@ -41,7 +45,8 @@ const postProducto = () => {
 };
 
 const appendProducto = (msg) => {
-  document.querySelector("#producto-lista").innerHTML += `
+  //const aux = document.getElementById("producto-lista").innerHTML
+  document.getElementById("producto-lista").innerHTML += `
         <tr>
           <td>${msg.title}</td>
           <td>${msg.price}</td>

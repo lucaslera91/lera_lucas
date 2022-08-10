@@ -1,7 +1,7 @@
 <body>
-  <div>
+  <div class="p-2">
     <h3>Listado de productos</h3>
-    <table>
+    <table id="producto-lista">
       <tr>
         <th>Nombre producto</th>
         <th>Precio</th>
@@ -9,14 +9,16 @@
       </tr>
 
       <% if(productos) { %> <% productos.forEach(function(producto){ %>
-      <tr>
-        <td><%=producto.title %></td>
-        <td><%=producto.price %></td>
-        <td><%=producto.thumbnail %></td>
-      </tr>
+      
+        <tr>
+          <td><%=producto.title %></td>
+          <td><%=producto.price %></td>
+          <td><%=producto.thumbnail %></td>
+        </tr>
       <% }); %> <% } else { %>
       <p>No hay productos</p>
       <% } %>
+      
     </table>
   </div>
   <%- include('chat'); %>
