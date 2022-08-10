@@ -1,6 +1,8 @@
 const express = require('express')
 const { Server: HTTPServer } = require('http')
 const { Server: SocketServer } = require('socket.io')
+const PORT = process.env.PORT || 8080;
+
 const messages = [];
 
 const app = express()
@@ -25,7 +27,6 @@ socketServer.on('connection', (socket) => {
     })
 });
 
-const PORT = process.env.PORT || 3000;
 
 httpServer.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
