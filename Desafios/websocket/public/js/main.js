@@ -8,7 +8,6 @@ socket.on("INIT", (msg) => {
   console.log(msg);
 });
 
-
 const postMessage = () => {
   console.log("MENSAJE");
   const correo = document.getElementById("correo-mensaje").value;
@@ -16,25 +15,39 @@ const postMessage = () => {
   const fechaAux = new Date();
   const fecha = `[ ${fechaAux.getDate()}/${fechaAux.getMonth()} - ${fechaAux.getHours()} : ${fechaAux.getMinutes()} hs ]`;
   socket.emit("POST_MESSAGE", { correo, fecha, mensaje });
-  document.getElementById("correo-mensaje").value = ''
-  document.getElementById("mensaje-mensaje").value = ''
-  
+  document.getElementById("correo-mensaje").value = "";
+  document.getElementById("mensaje-mensaje").value = "";
 };
-  
-  
 
-  socket.on("UPDATE_CHAT", (msg) => {
-    appendMsg(msg)
-  });
+socket.on("UPDATE_CHAT", (msg) => {
+  appendMsg(msg);
+});
 
 const postProducto = () => {
   console.log("PRODUCTO");
+  const title = document.getElementById("nombre-producto");
+  const price = document.getElementById("precio-producto");
+  const thumbnail = document.getElementById("img-producto");
 
   socket.emit("POST_PRODUCTO", {
-    nombre: "nombre",
-    mensaje: "mensaje",
-    fecha: "fecha",
+    title: title.value,
+    price: price.value,
+    thumbnail: thumbnail.value,
   });
+
+  title.value = "";
+  price.value = "";
+  thumbnail.value = "";
+};
+
+const appendProducto = (msg) => {
+  document.querySelector("#producto-lista").innerHTML += `
+        <tr>
+          <td>${msg.title}</td>
+          <td>${msg.price}</td>
+          <td>${msg.thumbnail}</td>
+        </tr>
+    `;
 };
 
 const appendMsg = (msg) => {
@@ -49,4 +62,3 @@ const appendMsg = (msg) => {
 </div>
     `;
 };
-

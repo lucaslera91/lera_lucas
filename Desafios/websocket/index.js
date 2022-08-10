@@ -42,7 +42,11 @@ socketServer.on("connection", (socket) => {
   });
 
   socket.on("POST_PRODUCTO", (msg) => {
-    socketServer.sockets.emit("POST_MESSAGE", msg);
+    fetch("http://localhost:8081/api/productos")
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+
+    socketServer.sockets.emit("UPDATE_PRODUCTO", msg);
   });
 
   //socket.on("TEST_MESSAGE", (func) => {

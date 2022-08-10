@@ -6,14 +6,16 @@
         <th>Precio</th>
         <th>Icono</th>
       </tr>
+      <div id="producto-lista">
+        <% if(productos) { %> <% productos.forEach(function(producto){ %>
+        <tr>
+          <td><%=producto.title %></td>
+          <td><%=producto.price %></td>
+          <td><%=producto.thumbnail %></td>
+        </tr>
+        <% }); %> <% } else { %>
+      </div>
 
-      <% if(productos) { %> <% productos.forEach(function(producto){ %>
-      <tr>
-        <td><%=producto.title %></td>
-        <td><%=producto.price %></td>
-        <td><%=producto.thumbnail %></td>
-      </tr>
-      <% }); %> <% } else { %>
       <p>No hay productos</p>
       <% } %>
     </table>
