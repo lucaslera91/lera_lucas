@@ -1,7 +1,7 @@
 const fs = require("fs");
 const filepath = "chats.txt";
-require('dotenv').config()
-console.log(process.env.RUTAMOTORPRODUCTOS)
+require("dotenv").config();
+console.log(process.env.RUTAMOTORPRODUCTOS);
 
 const getChats = async () => {
   const archivo = await fs.promises.readFile(filepath, "utf-8");
@@ -15,30 +15,29 @@ module.exports = class ChatManager {
 
   async fetchChats() {
     const data = await getChats();
-    return JSON.parse(data).chats ;
+    return JSON.parse(data).chats;
   }
-//process.env.RUTAMOTOR
- 
+  //process.env.RUTAMOTOR
 
   async agregarMensaje(obj) {
     const data = await getChats();
-    const chats =  JSON.parse(data).chats;
+    const chats = JSON.parse(data).chats;
     try {
-      const ids = chats.map((chat) => chat.id);
-      const max = Math.max(...ids);
-      obj.id = max + 1;
+      const user = chats.filter((chat) => chat.correo === obj.correo);
+      if (user.length < 1) {
+        obj.id = parseInt(Math.random() * 100000);
+      } else {
+        obj.id = user[0].id;
+      }
       chats.push(obj);
-      await fs.promises.writeFile(
-        filepath,
-        `${JSON.stringify({ chats })}`
-      );
+      //onst max = Math.max(...ids);
+      await fs.promises.writeFile(filepath, `${JSON.stringify({ chats })}`);
       return chats;
     } catch (error) {
       console.log(error);
     }
     //return res.json({ productos: productos });
     return JSON.parse(data).chats;
-
   }
 
   async eliminarChat(req, res) {
@@ -57,8 +56,7 @@ module.exports = class ChatManager {
       return res.json({ chats: listaActualizada });
     } else {
       //eturn res.json({ msg: "Producto no existe" });
-      return { msg: 'No hay mensajes' };
-
+      return { msg: "No hay mensajes" };
     }
   }
 };

@@ -12,7 +12,7 @@ require("dotenv").config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static("public/js"));
+app.use(express.static("public"));
 
 app.set("views", "./views");
 app.set("view engine", "ejs");
@@ -29,6 +29,7 @@ const prodManager = new ProductManager(filepathProductos);
 
 const { Server: HTTPServer } = require("http");
 const { Server: SocketServer } = require("socket.io");
+const { clearScreenDown } = require("readline");
 //const PORT = process.env.PORT || 8080;
 
 const httpServer = new HTTPServer(app);
@@ -37,18 +38,22 @@ const socketServer = new SocketServer(httpServer);
 const messages = [];
 
 socketServer.on("connection", (socket) => {
-  socketServer.emit("INIT", "Bienvenido al inicio de WebSocket");
 
+  socketServer.emit("INIT", `Bienvenido`);
   socket.on("POST_MESSAGE", async (msg) => {
-    const addMsg = await chatManager.agregarMensaje(msg);
-    socketServer.sockets.emit("UPDATE_CHAT", msg);
+    const { correo, fecha, mensaje } = msg;
+    if (correo === "" || mensaje === "") {
+      socketServer.sockets.emit("ERROR_CHAT", msg);
+    } else {
+      const addMsg = await chatManager.agregarMensaje(msg);
+      socketServer.sockets.emit("UPDATE_CHAT", msg);
+    }
   });
 
   socket.on("POST_PRODUCTO", async (msg) => {
-    await prodManager.agregarProducto(msg)
+    await prodManager.agregarProducto(msg);
     socketServer.sockets.emit("UPDATE_PRODUCTO", msg);
   });
-
 });
 
 httpServer.listen(PORT, () => {

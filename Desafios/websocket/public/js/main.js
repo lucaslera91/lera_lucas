@@ -10,12 +10,13 @@ socket.on("INIT", (msg) => {
 
 const postMessage = () => {
   console.log("MENSAJE");
+  document.getElementById("correo-mensaje").classList.remove("err");
   const correo = document.getElementById("correo-mensaje").value;
   const mensaje = document.getElementById("mensaje-mensaje").value;
   const fechaAux = new Date();
-  const fecha = `[ ${fechaAux.getDate()}/${fechaAux.getMonth()} - ${fechaAux.getHours()} : ${fechaAux.getMinutes()} hs ]`;
+  const fecha = `[ ${fechaAux.getDate()} / ${fechaAux.getMonth()} / ${fechaAux.getFullYear()} - ${fechaAux.getHours()} : ${fechaAux.getMinutes()}:${fechaAux.getSeconds()}]`;
   socket.emit("POST_MESSAGE", { correo, fecha, mensaje });
-  document.getElementById("correo-mensaje").value = "";
+  // document.getElementById("correo-mensaje").value = "";
   document.getElementById("mensaje-mensaje").value = "";
 };
 
@@ -26,6 +27,13 @@ socket.on("UPDATE_PRODUCTO", (msg) => {
   console.log('first')
   appendProducto(msg);
 });
+
+
+socket.on("ERROR_CHAT", (msg) => {
+  document.getElementById("correo-mensaje").classList.add("err");
+  // document.getElementById("correo-mensaje").value = ";
+});
+
 
 const postProducto = () => {
   console.log("PRODUCTO");

@@ -1,7 +1,8 @@
 <div class="p-2">
   <h3 class="">Chatea con personas de la pagina</h3>
   <div class="d-flex w-100">
-    <input class="m-2" type="text" id="correo-mensaje" placeholder="Correo" />
+    <input class="form-control m-2" type="text" id="correo-mensaje" placeholder="Correo" 
+    />
     <input
     class="w-100 m-2 form-control"
       type="textarea"
@@ -10,7 +11,7 @@
     />
     <div class="d-flex">
       <p class="m-2 text-secondary form-control d-flex align-items-center text-nowrap"><%=new Date().getHours() %>: <%=new Date().getMinutes() %></p>
-      <button onclick="postMessage()" class="btn btn-info m-2">Enviar</button>
+      <button type="submit" onclick="postMessage()" class="btn btn-info m-2" >Enviar</button>
     </div>
   </div>
 
@@ -20,8 +21,8 @@
       <p class="correo-chat"><%=msg.correo %></p>
       <p class="mensaje-chat"><%=msg.mensaje %></p>
       <div class="d-flex text-secondary">
-        <p><%=msg.fecha %></p>
-        <p><%=msg.id %></p>
+        <p class="date-chat"><%=msg.fecha %></p>
+        <p class="id-chat">id: <%=msg.id %></p>
       </div>
     </div>
     <% }); %> <% } else { %>

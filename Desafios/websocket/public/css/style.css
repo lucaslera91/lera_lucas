@@ -1,0 +1,25 @@
+body {
+    background-color: rgb(210, 210, 210);
+}
+
+.correo-chat{
+    color: blue;
+    font-weight: bold;
+}
+.mensaje-chat{
+    color: green;
+    font-style: italic;
+}
+.date-chat {
+    color: brown;
+}
+.err {
+    border: 2px solid red;
+}
+.date-chat {
+    padding: 5px;
+}
+.id-chat{
+    padding: 5px;
+
+}
