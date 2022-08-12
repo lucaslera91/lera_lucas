@@ -22,6 +22,8 @@ const postMessage = () => {
 
 socket.on("UPDATE_CHAT", (msg) => {
   appendMsg(msg);
+  const container = document.getElementById('chat-messages')
+  container.scrollTop = container.scrollHeight;
 });
 socket.on("UPDATE_PRODUCTO", (msg) => {
   console.log('first')
@@ -53,7 +55,6 @@ const postProducto = () => {
 };
 
 const appendProducto = (msg) => {
-  //const aux = document.getElementById("producto-lista").innerHTML
   document.getElementById("producto-lista").innerHTML += `
         <tr>
           <td>${msg.title}</td>

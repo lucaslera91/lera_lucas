@@ -10,15 +10,11 @@
       ,
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css" />
   </head>
   <body class="p-1">
     <h1 class="text-primary">Formulario de productos - Ejs</h1>
-    <form
-      method="post"
-      action="http://localhost:8081/api/productos"
-      class="d-flex flex-column text-secondary p-2"
-    >
+    <form class="d-flex flex-column text-secondary p-2">
       <label class="" for="title">Nombre</label>
       <input type="text" name="title" id="title" />
 
@@ -27,7 +23,6 @@
 
       <label for="thumbnail">Thumnail</label>
       <input type="text" name="thumbnail" id="thumbnail" />
-      <button class="btn btn-success mt-2">Registrar</button>
       <button
         class="btn btn-secondary mt-2"
         onclick="window.location.href='http://localhost:8081/api/productos';"
@@ -38,7 +33,7 @@
       <button
         type="button"
         onclick="postProducto()"
-        class="btn btn-warning w-100 mt-2"
+        class="btn btn-success w-100 mt-2"
       >
         Add product Live
       </button>
