@@ -5,7 +5,7 @@
       <tr>
         <th>Nombre producto</th>
         <th>Precio</th>
-        <th>Icono</th>
+        <th>Imagen</th>
       </tr>
 
       <% if(productos) { %> <% productos.forEach(function(producto){ %>
@@ -13,7 +13,7 @@
         <tr>
           <td><%=producto.title %></td>
           <td><%=producto.price %></td>
-          <td><%=producto.thumbnail %></td>
+          <td><img class='table-img' src="<%=producto.thumbnail%>"" alt=""></td>
         </tr>
       <% }); %> <% } else { %>
       <p>No hay productos</p>
@@ -22,4 +22,5 @@
     </table>
   </div>
   <%- include('chat'); %>
+
 </body>

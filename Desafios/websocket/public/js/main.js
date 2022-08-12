@@ -58,7 +58,7 @@ const appendProducto = (msg) => {
         <tr>
           <td>${msg.title}</td>
           <td>${msg.price}</td>
-          <td>${msg.thumbnail}</td>
+          <td><img class='table-img' src=${msg.thumbnail} alt=""></td>
         </tr>
     `;
 };

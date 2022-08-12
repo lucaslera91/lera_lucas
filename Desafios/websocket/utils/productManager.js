@@ -1,3 +1,4 @@
+const req = require("express/lib/request");
 const fs = require("fs");
 const filepath = "productos.txt";
 require("dotenv").config();
@@ -37,12 +38,13 @@ module.exports = class ApiManager {
   async agregarProducto(obj) {
     const data = await getProductos();
     const productos = JSON.parse(data).productos;
-    //let obj = req.body;
+    //console.log(req.body)
+    let object = req.body ?? obj
     try {
       const ids = productos.map((producto) => producto.id);
       const max = Math.max(...ids);
-      obj.id = max + 1;
-      productos.push(obj);
+      object.id = max + 1;
+      productos.push(object);
       await fs.promises.writeFile(
         filepath,
         `${JSON.stringify({ productos: productos })}`
