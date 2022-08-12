@@ -22,20 +22,18 @@ const postMessage = () => {
 
 socket.on("UPDATE_CHAT", (msg) => {
   appendMsg(msg);
-  const container = document.getElementById('chat-messages')
+  const container = document.getElementById("chat-messages");
   container.scrollTop = container.scrollHeight;
 });
 socket.on("UPDATE_PRODUCTO", (msg) => {
-  console.log('first')
+  console.log("first");
   appendProducto(msg);
 });
-
 
 socket.on("ERROR_CHAT", (msg) => {
   document.getElementById("correo-mensaje").classList.add("err");
   // document.getElementById("correo-mensaje").value = ";
 });
-
 
 const postProducto = () => {
   console.log("PRODUCTO");
@@ -66,13 +64,13 @@ const appendProducto = (msg) => {
 
 const appendMsg = (msg) => {
   document.querySelector("#chat-messages").innerHTML += `
+
   <div class="card m-2 p-2">
     <p class="correo-chat">${msg.correo}</p>
     <p class="mensaje-chat">${msg.mensaje}</p>
     <div class="d-flex text-secondary">
-      <p>${msg.fecha}</p>
-      <p>${msg.id}</p>
+      <p class="date-chat">${msg.fecha}</p>
+      <p class="id-chat">id: ${msg.id}</p>
   </div>
-</div>
     `;
 };
