@@ -1,0 +1,24 @@
+.container-cart-card {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid rgb(187, 181, 181);
+    margin: 10px;
+}
+.nombre-cart-card {
+}
+.descripcion-cart-card {
+    color: rgb(144, 135, 135);
+    font-size: smaller;
+}
+.precio-cart-card {
+    font-weight: bolder;
+}
+.stock-cart-card {
+}
+.foto-cart-card {
+    height: 300px;
+}
+.foto-cart-card img{
+    object-fit: contain;
+    
+}

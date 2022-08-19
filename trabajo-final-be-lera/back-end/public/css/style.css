@@ -1,0 +1,33 @@
+body {
+    background-color: rgb(228, 221, 221);
+}
+
+.correo-chat{
+    color: blue;
+    font-weight: bold;
+}
+.mensaje-chat{
+    color: green;
+    font-style: italic;
+}
+.date-chat {
+    color: brown;
+}
+.err {
+    border: 2px solid red;
+}
+.date-chat {
+    padding: 5px;
+}
+.id-chat{
+    padding: 5px;
+
+}
+.table-img{
+    height: 100px;
+    border-radius: 8px;
+    padding: 15px;
+}
+th{
+    padding: 15px;
+}

@@ -1,0 +1,26 @@
+<body>
+  <div class="p-2">
+    <h3>Listado de productos</h3>
+    <table id="producto-lista">
+      <tr>
+        <th>Nombre producto</th>
+        <th>Precio</th>
+        <th>Imagen</th>
+      </tr>
+
+      <% if(productos) { %> <% productos.forEach(function(producto){ %>
+      
+        <tr>
+          <td><%=producto.title %></td>
+          <td><%=producto.price %></td>
+          <td><img class='table-img' src="<%=producto.thumbnail%>"" alt=""></td>
+        </tr>
+      <% }); %> <% } else { %>
+      <p>No hay productos</p>
+      <% } %>
+      
+    </table>
+  </div>
+  <%- include('chat'); %>
+
+</body>

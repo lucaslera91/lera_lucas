@@ -1,0 +1,9 @@
+.product-container-detail{
+    
+}
+
+.product-container-detail img{
+    height: 350px;
+    width: 350px;
+    border-radius: 5px;
+}

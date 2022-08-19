@@ -1,0 +1,24 @@
+.navBar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.navBar-container ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  list-style: none;
+  flex-grow: inherit;
+  flex: 1 1 auto;
+}
+
+.navBar-logo {
+  width: 50px;
+  height: 50px;
+  background-color: rgb(9, 202, 202);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+}
