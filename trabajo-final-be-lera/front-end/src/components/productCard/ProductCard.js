@@ -58,7 +58,7 @@ const ProductCard = ({ producto, actualizarLista }) => {
             <Link className="link-decoration" to={`/productos/${id}`}>
               <button>Detalles</button>
             </Link>
-            <button>Add to cart</button>
+            <button >Add to cart</button>
           </div>
           <div>
             <button onClick={() => setIsActualizar(true)}>Actualizar</button>

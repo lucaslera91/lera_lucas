@@ -14,23 +14,62 @@ module.exports = class CartManager {
     this.filepath = filepath;
   }
 
+  async createCart(req, res) {
+    const rawData = await getCart();
+    const carts = JSON.parse(rawData).cart;
+    const newCart = [...carts];
+
+    newCart.push({
+      id: parseInt(Math.random() * 3000).toString(),
+      timestamp: Date.now(),
+      productos: [],
+    });
+    console.log(newCart);
+    await fs.promises.writeFile(
+      filepath,
+      `${JSON.stringify({ cart: newCart })}`
+    );
+    return res.json({ carrito: newCart });
+  }
+
+  async deleteCart(req, res) {
+    const rawData = await getCart();
+    const carts = JSON.parse(rawData).cart;
+    console.log(req.params.id_cart)
+    carts.map(cart => console.log(cart.id))
+    const newCart = carts.filter(cart => cart.id !== req.params.id_cart)
+
+    console.log(newCart)
+    await fs.promises.writeFile(
+      filepath,
+      `${JSON.stringify({ cart: newCart })}`
+    );
+    return res.json({ carrito: newCart });
+  }
+
   async fetchProductos(req, res) {
-    const data = await getCart();
-    return JSON.parse(data).cart;
+    const rawData = await getCart();
+    console.log(req.param);
+    const data = JSON.parse(rawData).cart.filter(
+      (cart) => cart.id === req.params.id
+    );
+    //console.log(data)
+    //return JSON.parse(data).cart;
+    return JSON.parse(rawData).cart;
   }
 
   async agregarProductoCart(obj) {
     const data = await getCart();
     const productos = JSON.parse(data).cart.productos;
     //console.log(req.body)
-    let object = req.body ?? obj
+    let object = req.body ?? obj;
     try {
       const ids = productos.map((producto) => producto.id);
       const max = Math.max(...ids);
       object.id = max + 1;
       object.timestamp = Date.now();
       productos.push(object);
-      data[productos] = productos
+      data[productos] = productos;
       await fs.promises.writeFile(
         filepath,
         `${JSON.stringify({ cart: data })}`
@@ -93,5 +132,4 @@ module.exports = class CartManager {
       });
     }
   }
-
 };

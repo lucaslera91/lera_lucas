@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { CartConsumer } from "../../context/CartProvider";
 
 import "./navStyle.css";
 const NavBar = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const { cartId} = CartConsumer();
   return (
     <div className="navBar-container">
       <div className="navBar-logo">Logo</div>
@@ -19,7 +21,7 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-          <Link className="link-decoration" to="/carrito">
+          <Link className="link-decoration" to={`/carrito`}>
             Cart
           </Link>
         </li>

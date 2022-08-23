@@ -5,12 +5,14 @@ const filepath = "cart.txt";
 
 const cartManager = new CartManager(filepath);
 
-routerCart.get('/', async (req, res) => {
+routerCart.get('/:id', async (req, res) => {
     const data = await cartManager.fetchProductos()
     return res.json({ carrito: data });
 });
-routerCart.post('/', cartManager.agregarProductoCart)
+routerCart.post('/:id/productos', cartManager.agregarProductoCart)
+routerCart.post('/', cartManager.createCart)
 //routerCart.put('/:id', cartManager.modificarProducto)
-//routerCart.delete('/:id', cartManager.eliminarProducto)
+routerCart.delete('/:id_cart', cartManager.deleteCart)
+routerCart.delete('/:id_cart/productos/:id_producto', cartManager.eliminarProductoCart)
 
 module.exports = routerCart;
