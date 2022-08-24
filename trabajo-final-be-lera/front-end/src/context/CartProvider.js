@@ -13,15 +13,11 @@ export const CartConsumer = () => useContext(CartContext);
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const [cartId, setCartId] = useState("");
+  const [cartId, setCartId] = useState(localStorage.getItem('cartId'));
 
-  //useEffect(() => {
-    //const auxx = localStorage.getItem("cartId");
-    //if (!auxx) setCartId(service.getCartId());
-  //}, []);
-  useEffect(()=>{
-    console.log(cartId)
-  }, [cartId])
+  // useEffect(()=>{
+  //   localStorage.setItem('cartId', cartId)
+  // }, [cartId])
 
   const getCart = async () => {
     setCart(await service.cartServiceGet(cartId));
@@ -36,20 +32,21 @@ const CartProvider = ({ children }) => {
     const aux = await service.deleteCartService(cartId)
     console.log(aux)
     localStorage.setItem('cartId', null)
-    setCartId(null)
+    setCartId(0)
     console.log(cartId)
   }
 
 
   const addToCart = async (body) => {
     console.log("first");
-    //const add = await service.cartServicePost(body);
-    //console.log(add);
+    console.log(body)
+    const add = await service.cartServicePost(cartId, body);
+    console.log(add);
     console.log("second");
   };
 
   return (
-    <CartContext.Provider value={{ cart, getCart, cartId, createCartId, deleteCart}}>
+    <CartContext.Provider value={{ cart, getCart, cartId, createCartId, deleteCart, addToCart}}>
       {children}
     </CartContext.Provider>
   );

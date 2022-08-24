@@ -6,20 +6,10 @@ import CartList from "../cartList/CartList";
 const MainCartContainer = () => {
   const { cart, createCartId, deleteCart, cartId } = CartConsumer();
 
-  // useEffect(() => {
-  //   console.log(localStorage.getItem('cartId'))
-  //   if (localStorage.getItem('cartId') === true){
-  //     console.log('first')
-  //     //getCart();
-  //   } else {
-  //     createCartId()
-  //   }
-  // }, [cart]);
-
   return (
     <>
       <button onClick={createCartId}>Create Cart</button>
-      {cartId && <button onClick={deleteCart}>Delete Cart</button>}
+      {cartId != 0 && <button onClick={deleteCart}>Delete Cart</button>}
       {!cart && <h4>No cart, create one!</h4>}
       {cart && <div>
         <CartList cartList={cart} />

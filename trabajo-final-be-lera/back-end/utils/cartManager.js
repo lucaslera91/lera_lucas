@@ -35,11 +35,11 @@ module.exports = class CartManager {
   async deleteCart(req, res) {
     const rawData = await getCart();
     const carts = JSON.parse(rawData).cart;
-    console.log(req.params.id_cart)
-    carts.map(cart => console.log(cart.id))
-    const newCart = carts.filter(cart => cart.id !== req.params.id_cart)
+    console.log(req.params.id_cart);
+    carts.map((cart) => console.log(cart.id));
+    const newCart = carts.filter((cart) => cart.id !== req.params.id_cart);
 
-    console.log(newCart)
+    console.log(newCart);
     await fs.promises.writeFile(
       filepath,
       `${JSON.stringify({ cart: newCart })}`
@@ -58,23 +58,33 @@ module.exports = class CartManager {
     return JSON.parse(rawData).cart;
   }
 
-  async agregarProductoCart(obj) {
+  async agregarProductoCart(req, obj) {
     const data = await getCart();
-    const productos = JSON.parse(data).cart.productos;
-    //console.log(req.body)
-    let object = req.body ?? obj;
+    const newData = JSON.parse(data);
+    const carts = newData.cart;
+    console.log("cart --> ", carts);
+    const id = req.body.cartId;
+    console.log(id);
+    const currentCart = carts.filter(
+      (cart) => cart.id.toString() === id.toString()
+    );
+    console.log(currentCart);
+    //const productos = currentCart[0].productos;
+    //console.log(productos);
+    let object = req.body.producto ?? obj;
+    console.log(object)
     try {
-      const ids = productos.map((producto) => producto.id);
-      const max = Math.max(...ids);
-      object.id = max + 1;
+      //object.id = parseInt(Math.random() * 1000).toString();
       object.timestamp = Date.now();
-      productos.push(object);
-      data[productos] = productos;
+      console.log(object)
+      currentCart[0].productos.push(object);
+      console.log('test', currentCart)
+      console.log(carts)
       await fs.promises.writeFile(
         filepath,
-        `${JSON.stringify({ cart: data })}`
+        `${JSON.stringify({ cart: carts })}`
       );
-      return { cart: data };
+      return { cart: carts };
     } catch (error) {
       console.log(error);
     }

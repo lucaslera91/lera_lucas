@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { CartConsumer, CartContext } from "../../context/CartProvider";
 import ProductosEditar from "../edicionProductos/ProductosEditar";
 import "./productCard.css";
 
@@ -8,7 +9,7 @@ const ProductCard = ({ producto, actualizarLista }) => {
   const { id, precio, foto, nombre, timestamp, descripcion, codigo, stock } =
     producto;
   const [isActualizar, setIsActualizar] = useState(false);
-
+  const { addToCart } = CartConsumer();
   const eliminar = async () => {
     if (
       window.confirm(`Seguro que quieres eliminar ${producto.title}`) != true
@@ -58,7 +59,7 @@ const ProductCard = ({ producto, actualizarLista }) => {
             <Link className="link-decoration" to={`/productos/${id}`}>
               <button>Detalles</button>
             </Link>
-            <button >Add to cart</button>
+            <button onClick={() => addToCart(producto)}>Add to cart</button>
           </div>
           <div>
             <button onClick={() => setIsActualizar(true)}>Actualizar</button>
