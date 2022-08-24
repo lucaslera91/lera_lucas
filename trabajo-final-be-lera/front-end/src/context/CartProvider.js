@@ -24,12 +24,17 @@ const CartProvider = ({ children }) => {
     setCartId(await service.createCartId());
   }
 
-  const deleteCart = async () => {
+  const deleteCart = async (id) => {
     const aux = await service.deleteCartService(cartId)
     console.log(aux)
     localStorage.setItem('cartId', null)
     setCartId(0)
     console.log(cartId)
+  }
+  const deleteProductInCart = async (id) => {
+    const aux = await service.deleteProductoCartService(cartId, id)
+    console.log('Deleted con exito', aux)
+    getCart()
   }
 
 
@@ -42,7 +47,7 @@ const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, getCart, cartId, createCartId, deleteCart, addToCart}}>
+    <CartContext.Provider value={{ cart, getCart, cartId, createCartId, deleteCart, addToCart, deleteProductInCart}}>
       {children}
     </CartContext.Provider>
   );

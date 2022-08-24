@@ -56,6 +56,25 @@ export const deleteCartService = async (id) => {
   }
 };
 
+export const deleteProductoCartService = async (id, idProducto) => {
+  try {
+    const deleteCart = await fetch(`http://localhost:8081/api/carrito/${id}/productos/${idProducto}`, {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+    const res = await deleteCart.json();
+    console.log(res.carrito);
+    return res.carrito;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+///:id_cart/productos/:id_producto
 export const cartServicePost = async (cartId, producto) => {
   try {
     const addToCart = await fetch(

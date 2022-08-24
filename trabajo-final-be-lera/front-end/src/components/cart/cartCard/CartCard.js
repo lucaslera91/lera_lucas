@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { CartConsumer } from "../../../context/CartProvider";
 import "./cartCardStyle.css";
 
 const CartCard = ({ producto }) => {
+  const { deleteProductInCart } = CartConsumer();
+
   return (
     <div className="container-cart-card">
       <p className="nombre-cart-card">{producto.nombre}</p>
@@ -16,7 +19,10 @@ const CartCard = ({ producto }) => {
         </Link>
       </div>
       <div>
-        <button className="eliminar" >
+        <button
+          onClick={() => deleteProductInCart(producto.id)}
+          className="eliminar"
+        >
           Eliminar de cart
         </button>
       </div>

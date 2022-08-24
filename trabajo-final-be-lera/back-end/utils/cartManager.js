@@ -1,5 +1,6 @@
 const req = require("express/lib/request");
 const fs = require("fs");
+const { runInNewContext } = require("vm");
 const filepath = "cart.txt";
 require("dotenv").config();
 //console.log(process.env.RUTAMOTORPRODUCTOS);
@@ -52,9 +53,8 @@ module.exports = class CartManager {
     const data = JSON.parse(rawData).cart.filter(
       (cart) => cart.id === req.params.id
     );
-    console.log(data)
-    //return JSON.parse(data).cart;
-    return res.json({carrito: data});
+    console.log(data);
+    return res.json({ carrito: data });
   }
 
   async agregarProductoCart(req, obj) {
@@ -83,50 +83,21 @@ module.exports = class CartManager {
   }
 
   async eliminarProductoCart(req, res) {
-    const data = await getProductos();
-    const productos = JSON.parse(data).productos;
-    const listaActualizada = productos.filter(
-      (producto) => Number(producto.id) !== Number(req.params.id)
+    const data = await getCart();
+    const carts = JSON.parse(data).cart;
+    const currentCart = carts.filter(
+      (cart) => Number(cart.id) === Number(req.params.id_cart)
     );
-
-    if (listaActualizada.length < productos.length) {
-      await fs.promises.writeFile(
-        filepath,
-        `${JSON.stringify({ productos: listaActualizada })}`
-      );
-      return res.render(process.env.RUTAMOTORPRODUCTOS, {
-        productos: listaActualizada,
-      });
-      return res.json({ productos: listaActualizada });
-    } else {
-      //eturn res.json({ msg: "Producto no existe" });
-      return res.render(process.env.RUTAMOTORPRODUCTOS, {
-        msg: "Productos no existe",
-      });
-    }
-  }
-
-  async eliminarCart(req, res) {
-    const data = await getProductos();
-    const productos = JSON.parse(data).productos;
-    const listaActualizada = productos.filter(
-      (producto) => Number(producto.id) !== Number(req.params.id)
+    //console.log(listaActualizada)
+    const productosAcutalizados = currentCart[0].productos.filter(
+      (producto) => producto.id.toString() !== req.params.id_producto.toString()
     );
-
-    if (listaActualizada.length < productos.length) {
-      await fs.promises.writeFile(
-        filepath,
-        `${JSON.stringify({ productos: listaActualizada })}`
-      );
-      return res.render(process.env.RUTAMOTORPRODUCTOS, {
-        productos: listaActualizada,
-      });
-      return res.json({ productos: listaActualizada });
-    } else {
-      //eturn res.json({ msg: "Producto no existe" });
-      return res.render(process.env.RUTAMOTORPRODUCTOS, {
-        msg: "Productos no existe",
-      });
-    }
+    carts.forEach((cart) => {
+      if (cart.id.toString() === req.params.id_cart.toString())
+        cart["productos"] = productosAcutalizados;
+    });
+    console.log(carts);
+    await fs.promises.writeFile(filepath, `${JSON.stringify({ cart: carts })}`);
+    return res.json({ carrito: carts });
   }
 };
