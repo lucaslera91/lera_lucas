@@ -15,10 +15,6 @@ const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [cartId, setCartId] = useState(localStorage.getItem('cartId'));
 
-  // useEffect(()=>{
-  //   localStorage.setItem('cartId', cartId)
-  // }, [cartId])
-
   const getCart = async () => {
     setCart(await service.cartServiceGet(cartId));
   };

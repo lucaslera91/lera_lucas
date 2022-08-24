@@ -49,37 +49,26 @@ module.exports = class CartManager {
 
   async fetchProductos(req, res) {
     const rawData = await getCart();
-    console.log(req.param);
     const data = JSON.parse(rawData).cart.filter(
       (cart) => cart.id === req.params.id
     );
-    //console.log(data)
+    console.log(data)
     //return JSON.parse(data).cart;
-    return JSON.parse(rawData).cart;
+    return res.json({carrito: data});
   }
 
   async agregarProductoCart(req, obj) {
     const data = await getCart();
     const newData = JSON.parse(data);
     const carts = newData.cart;
-    console.log("cart --> ", carts);
     const id = req.body.cartId;
-    console.log(id);
     const currentCart = carts.filter(
       (cart) => cart.id.toString() === id.toString()
     );
-    console.log(currentCart);
-    //const productos = currentCart[0].productos;
-    //console.log(productos);
     let object = req.body.producto ?? obj;
-    console.log(object)
     try {
-      //object.id = parseInt(Math.random() * 1000).toString();
       object.timestamp = Date.now();
-      console.log(object)
       currentCart[0].productos.push(object);
-      console.log('test', currentCart)
-      console.log(carts)
       await fs.promises.writeFile(
         filepath,
         `${JSON.stringify({ cart: carts })}`
@@ -88,8 +77,6 @@ module.exports = class CartManager {
     } catch (error) {
       console.log(error);
     }
-
-    //return res.json({ productos: productos });
     return {
       productos: JSON.parse(data).productos,
     };

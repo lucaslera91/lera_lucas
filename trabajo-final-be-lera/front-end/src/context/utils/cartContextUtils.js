@@ -2,20 +2,19 @@ export const createCartId = async () => {
   //if (localStorage.getItem('cartId'))
   const auxId = await createCartService();
   localStorage.setItem("cartId", auxId[auxId.length - 1].id);
-  console.log(localStorage.getItem('cartId'))
+  console.log(localStorage.getItem("cartId"));
   return auxId[auxId.length - 1].id;
 };
 
 export const cartServiceGet = async (cartId) => {
-  //console.log(`http://localhost:8081/api/carrito/${cartId}`);
-  console.log(cartId);
   if (cartId) {
     try {
       const getProductoCart = await fetch(
-        `http://localhost:8081/api/carrito/${cartId}`
+        `http://localhost:8081/api/carrito/${cartId}`,
+        { method: "GET", mode: "cors" }
       );
       const res = await getProductoCart.json();
-      return res.carrito;
+      return res.carrito[0];
     } catch (error) {
       console.log(error);
     }
@@ -57,24 +56,24 @@ export const deleteCartService = async (id) => {
   }
 };
 
-export const cartServicePost = async (cartId, producto)=> {
- 
-
+export const cartServicePost = async (cartId, producto) => {
   try {
-    const addToCart = await fetch(`http://localhost:8081/api/carrito/${cartId}/productos`, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-
-      },
-      body: JSON.stringify({cartId, producto}),
-    });
+    const addToCart = await fetch(
+      `http://localhost:8081/api/carrito/${cartId}/productos`,
+      {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ cartId, producto }),
+      }
+    );
     const res = await addToCart.json();
     console.log(res.carrito);
     return res.carrito;
   } catch (error) {
     console.log(error);
   }
-}
+};

@@ -4,8 +4,11 @@ import { getCartId } from "../../../context/utils/cartContextUtils";
 import CartList from "../cartList/CartList";
 
 const MainCartContainer = () => {
-  const { cart, createCartId, deleteCart, cartId } = CartConsumer();
+  const { cart, createCartId, deleteCart, cartId, getCart } = CartConsumer();
 
+  useEffect(() => {
+    getCart()
+  }, [])
   return (
     <>
       <button onClick={createCartId}>Create Cart</button>
