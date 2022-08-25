@@ -10,15 +10,16 @@ const ProductDetail = () => {
     axios
       .get(`http://localhost:8081/api/productos/${id}`)
       .then((res) => {
-        console.log(res.data);
         const {productos} = res.data
         setProducto(productos[0]);
       })
       .catch((e) => console.log(e));
   };
+  
   useEffect(() => {
     getProducto()
   }, []);
+
   const { title, price, thumbnail } = producto;
   return (
     <div className="product-container-detail">

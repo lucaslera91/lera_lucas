@@ -8,12 +8,13 @@ const MainCartContainer = () => {
 
   useEffect(() => {
     getCart()
+    console.log(cart)
   }, [])
   return (
     <>
-      <button onClick={createCartId}>Create Cart</button>
+      {cartId === 0 && <button onClick={createCartId}>Create Cart</button>}
       {cartId != 0 && <button onClick={deleteCart}>Delete Cart</button>}
-      {!cart && <h4>No cart, create one!</h4>}
+      {!cart && <h4>No cart</h4>}
       {cart && <div>
         <CartList cartList={cart} />
       </div>}

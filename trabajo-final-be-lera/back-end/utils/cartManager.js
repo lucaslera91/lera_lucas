@@ -6,8 +6,12 @@ require("dotenv").config();
 //console.log(process.env.RUTAMOTORPRODUCTOS);
 
 const getCart = async () => {
-  const archivo = await fs.promises.readFile(filepath, "utf-8");
-  return archivo;
+  try {
+    const archivo = await fs.promises.readFile(filepath, "utf-8");
+    return archivo;
+  } catch (error) {
+    return { msg: error };
+  }
 };
 
 module.exports = class CartManager {
@@ -36,11 +40,8 @@ module.exports = class CartManager {
   async deleteCart(req, res) {
     const rawData = await getCart();
     const carts = JSON.parse(rawData).cart;
-    console.log(req.params.id_cart);
     carts.map((cart) => console.log(cart.id));
     const newCart = carts.filter((cart) => cart.id !== req.params.id_cart);
-
-    console.log(newCart);
     await fs.promises.writeFile(
       filepath,
       `${JSON.stringify({ cart: newCart })}`
@@ -53,7 +54,6 @@ module.exports = class CartManager {
     const data = JSON.parse(rawData).cart.filter(
       (cart) => cart.id === req.params.id
     );
-    console.log(data);
     return res.json({ carrito: data });
   }
 
@@ -83,21 +83,27 @@ module.exports = class CartManager {
   }
 
   async eliminarProductoCart(req, res) {
-    const data = await getCart();
-    const carts = JSON.parse(data).cart;
-    const currentCart = carts.filter(
-      (cart) => Number(cart.id) === Number(req.params.id_cart)
-    );
-    //console.log(listaActualizada)
-    const productosAcutalizados = currentCart[0].productos.filter(
-      (producto) => producto.id.toString() !== req.params.id_producto.toString()
-    );
-    carts.forEach((cart) => {
-      if (cart.id.toString() === req.params.id_cart.toString())
-        cart["productos"] = productosAcutalizados;
-    });
-    console.log(carts);
-    await fs.promises.writeFile(filepath, `${JSON.stringify({ cart: carts })}`);
-    return res.json({ carrito: carts });
+    try {
+      const data = await getCart();
+      const carts = JSON.parse(data).cart;
+      const currentCart = carts.filter(
+        (cart) => Number(cart.id) === Number(req.params.id_cart)
+      );
+      const productosAcutalizados = currentCart[0].productos.filter(
+        (producto) =>
+          producto.id.toString() !== req.params.id_producto.toString()
+      );
+      carts.forEach((cart) => {
+        if (cart.id.toString() === req.params.id_cart.toString())
+          cart["productos"] = productosAcutalizados;
+      });
+      await fs.promises.writeFile(
+        filepath,
+        `${JSON.stringify({ cart: carts })}`
+      );
+      return res.json({ carrito: carts });
+    } catch (error) {
+      console.log(error);
+    }
   }
 };

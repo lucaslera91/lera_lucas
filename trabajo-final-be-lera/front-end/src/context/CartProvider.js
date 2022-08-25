@@ -1,8 +1,6 @@
 import React, {
   createContext,
   useContext,
-  useEffect,
-  useMemo,
   useState,
 } from "react";
 import * as service from "./utils/cartContextUtils";
@@ -29,21 +27,16 @@ const CartProvider = ({ children }) => {
     console.log(aux)
     localStorage.setItem('cartId', null)
     setCartId(0)
-    console.log(cartId)
+    getCart()
   }
   const deleteProductInCart = async (id) => {
     const aux = await service.deleteProductoCartService(cartId, id)
-    console.log('Deleted con exito', aux)
     getCart()
   }
 
 
   const addToCart = async (body) => {
-    console.log("first");
-    console.log(body)
     const add = await service.cartServicePost(cartId, body);
-    console.log(add);
-    console.log("second");
   };
 
   return (

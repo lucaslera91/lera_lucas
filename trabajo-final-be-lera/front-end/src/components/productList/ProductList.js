@@ -9,7 +9,6 @@ const ProductList = () => {
     axios
       .get("http://localhost:8081/api/productos")
       .then((res) => {
-        console.log(res.data);
         setProductos(res.data);
       })
       .catch((e) => console.log(e));
@@ -23,7 +22,13 @@ const ProductList = () => {
     <div>
       {productos.lenght < 1 && <h5>No hay productos</h5>}
       {productos.length > 1 &&
-        productos.map((producto) => <ProductCard actualizarLista={getProductos} key={producto.id} producto={producto} />)}
+        productos.map((producto) => (
+          <ProductCard
+            actualizarLista={getProductos}
+            key={producto.id}
+            producto={producto}
+          />
+        ))}
     </div>
   );
 };

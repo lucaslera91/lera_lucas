@@ -7,7 +7,6 @@ const ProductosEditar = ({ producto, salirActualizar }) => {
   //const [option, setOption] = useState({});
 
   const actualizar = async (e) => {
-    console.log(e);
     e.preventDefault();
     let url;
     let type;
@@ -19,10 +18,7 @@ const ProductosEditar = ({ producto, salirActualizar }) => {
       descripcion: e.target[3].value,
       stock: e.target[4].value,
       foto: e.target[5].value,
-      
     };
-    console.log(type);
-    console.log(options);
     try {
       const reqOptions = {
         method: type,
@@ -40,14 +36,11 @@ const ProductosEditar = ({ producto, salirActualizar }) => {
       const aux = await fetch(url, reqOptions);
       const res = await aux.json().then(() => {
         if (type === "post") {
-          window.location.reload()
+          window.location.reload();
         } else {
           salirActualizar();
         }
       });
-      console.log(res);
-
-      console.log(aux);
     } catch (error) {
       console.log(error);
     }
@@ -55,16 +48,15 @@ const ProductosEditar = ({ producto, salirActualizar }) => {
 
   return (
     <div className="form-container">
-      {/* <div className='form-type-select'>
-            <p onClick={()=> setIsEditar(false)}>Crear</p>
-            <p onClick={()=> setIsEditar(true)}>Editar</p>
-        </div> */}
       <h4>Edit Product</h4>
       <form className="edit-form" onSubmit={(e) => actualizar(e)}>
         <input defaultValue={producto?.nombre ?? ""} placeholder="Nombre" />
         <input defaultValue={producto?.precio ?? ""} placeholder="Precio" />
         <input defaultValue={producto?.codigo ?? ""} placeholder="Codigo" />
-        <input defaultValue={producto?.descripcion ?? ""} placeholder="Descripcion" />
+        <input
+          defaultValue={producto?.descripcion ?? ""}
+          placeholder="Descripcion"
+        />
         <input defaultValue={producto?.stock ?? ""} placeholder="Stock" />
         <input
           defaultValue={producto?.foto ?? ""}

@@ -1,10 +1,6 @@
 const PORT = 8081;
 const rutaProductos = require("./router/RutaProductos");
 const routerCart = require("./router/RutaCarrito");
-const MessageManager = require("./utils/messageManager");
-const ProductManager = require("./utils/productManager");
-const filepathChat = "chats.txt";
-const filepathProductos = "productos.txt";
 
 const express = require("express");
 const cors = require('cors')

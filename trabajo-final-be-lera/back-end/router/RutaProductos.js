@@ -10,9 +10,6 @@ routerProductos.get('/', async (req, res) => {
     return res.json(aux);
 });
 
-// routerProductos.get('/', async (req, res) => {
-//     return res.render("index");
-// } )
 routerProductos.get('/:id', productManager.getProducto)
 routerProductos.post('/', productManager.agregarProducto)
 routerProductos.put('/:id', productManager.modificarProducto)
