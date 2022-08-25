@@ -12,10 +12,11 @@ const MainCartContainer = () => {
   }, [])
   return (
     <>
-      {cartId === 0 && <button onClick={createCartId}>Create Cart</button>}
+      {<button onClick={createCartId}>Create Cart</button>}
       {cartId != 0 && <button onClick={deleteCart}>Delete Cart</button>}
-      {!cart && <h4>No cart</h4>}
+      {!cart && <h4>No hay producto</h4>}
       {cart && <div>
+        <p>Current cart id: {cartId}</p>
         <CartList cartList={cart} />
       </div>}
     </>
