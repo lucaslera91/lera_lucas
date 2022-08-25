@@ -5,7 +5,7 @@ import { CartConsumer } from "../../context/CartProvider";
 import "./navStyle.css";
 const NavBar = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const { cartId} = CartConsumer();
+  const { cartId } = CartConsumer();
   return (
     <div className="navBar-container">
       <div className="navBar-logo">Logo</div>
