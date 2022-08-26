@@ -1,0 +1,32 @@
+<div class="p-2">
+  <h3 class="">Chatea con personas de la pagina</h3>
+  <div class="d-flex w-100">
+    <input class="form-control m-2" type="text" id="correo-mensaje" placeholder="Correo" 
+    />
+    <input
+    class="w-100 m-2 form-control"
+      type="textarea"
+      id="mensaje-mensaje"
+      placeholder="Message"
+    />
+    <div class="d-flex">
+      <p class="m-2 text-secondary form-control d-flex align-items-center text-nowrap"><%=new Date().getHours() %>: <%=new Date().getMinutes() %></p>
+      <button type="submit" onclick="postMessage()" class="btn btn-success m-2" >Enviar</button>
+    </div>
+  </div>
+
+  <div class='overflow-auto' style="height: 400px" id="chat-messages">
+    <% if(msgs) { %> <% msgs.forEach(function(msg){ %>
+    <div class="card m-2 p-2">
+      <p class="correo-chat"><%=msg.correo %></p>
+      <p class="mensaje-chat"><%=msg.mensaje %></p>
+      <div class="d-flex text-secondary">
+        <p class="date-chat"><%=msg.fecha %></p>
+        <p class="id-chat">id: <%=msg.id %></p>
+      </div>
+    </div>
+    <% }); %> <% } else { %>
+    <p>No hay mensajes</p>
+    <% } %>
+  </div>
+</div>
