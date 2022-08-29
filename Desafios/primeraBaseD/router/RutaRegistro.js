@@ -22,18 +22,22 @@ const chat = new ChatManager(filepath2);
 //   console.log(auxChat)
 // return res.render("./registro/registro", { productos: productos, msgs: auxChat });
 // });
-// routerRegistro.get("/", async (req, res, next) => {
-//   // const chats = await chat.fetchChats(req, res);
-//   // const auxChat = chats.json()
-//   // //const auxProductos = await productos.getProductos(req, res, next, true);
-//   // console.log(chats);
-//   // //console.log(auxProductos);
-//   // return res.render("./registro/registro", {
-//   //   productos: ['productos'],
-//   //   msgs: auxChat,
-//   // });
-// });
-routerRegistro.get("/", () => productos.getProductos(req, res, next, true));
+routerRegistro.get("/", async (req, res, next) => {
+  //si ejecuto asi, me dice que tengo envio de datos http repetidos
+  const chats = await chat.fetchChats();
+  //si envio asi me dice que no reconoce res
+  //const chats2 = await chat.fetchChats();
+
+  // como debo hacer para pasar parametros y que se mantengan las peticiones req, res.
+  const auxProductos = await productos.getProductos();
+  return res.render("./registro/registro", {
+    productos: auxProductos,
+    msgs: chats,
+  });
+});
+
+// sino me qudan asi, y no puedo reutilizar codigo
+routerRegistro.get("/", productos.getProductos);
 routerRegistro.get("/", chat.fetchChats);
 
 routerRegistro.post("/", chat.agregarMensaje);

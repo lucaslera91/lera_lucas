@@ -8,13 +8,13 @@ const database = knex(knexConfig);
 const tableName = "productos";
 const productManager = new ProductManager(filepath);
 
-// routerProductos.get("/", async (req, res) => {
-//   //return res.render("./productos/productos", { productos: productos, msgs: auxChat });
-//   const auxProductos = await productManager.getProductos();
-//   console.log(productos);
-//   return res.render("./productos/productos", { productos: auxProductos });
-// });
-routerProductos.get("/", productManager.getProductos);
+routerProductos.get("/", async (req, res) => {
+  //return res.render("./productos/productos", { productos: productos, msgs: auxChat });
+  const auxProductos = await productManager.getProductos();
+  //console.log(productos);
+  return res.render("./productos/productos", { productos: auxProductos });
+});
+//routerProductos.get("/", productManager.getProductos);
 
 // routerProductos.get('/', async (req, res) => {
 //     return res.render("index");

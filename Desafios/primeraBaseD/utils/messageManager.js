@@ -21,7 +21,7 @@ module.exports = class ChatManager {
   async fetchChats(req, res) {
     try {
       const archivo = await database(tableName).select();
-      return res.json({ chats: archivo });
+      return archivo ;
     } catch (error) {
       console.log(error)
       // return res.json({ msg: error });
@@ -34,10 +34,10 @@ module.exports = class ChatManager {
     let object = req.body
     try {
       const archivo = await database(tableName).insert({ ...object });
-      return res.json({ mensajes: archivo});
+      return { mensajes: archivo};
     } catch (error) {
       console.log(error)
-      return res.json({ error });
+      return { error };
     }
   }
 }

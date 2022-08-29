@@ -15,11 +15,8 @@ module.exports = class ApiManager {
   async getProductos(req, res, next, option = false) {
     try {
       const auxProd = await database(tableName).select();
-      console.log('option', option);
-      //return res.json({ productos: auxProd });
-      option
-        ? res.json({ productos: auxProd })
-        : res.render("./productos/productos", { productos: auxProd });
+      //console.log('option', option);
+      return auxProd ;
     } catch (error) {
       console.log(error);
       //return res.json({ productos: error });
