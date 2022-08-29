@@ -29,7 +29,6 @@ const prodManager = new ProductManager(filepathProductos);
 
 const { Server: HTTPServer } = require("http");
 const { Server: SocketServer } = require("socket.io");
-const { clearScreenDown } = require("readline");
 //const PORT = process.env.PORT || 8080;
 
 const httpServer = new HTTPServer(app);

@@ -6,24 +6,22 @@ const DATABASE_PORT = process.env.DATABASE_PORT || "3306";
 const DATABASE_USER = process.env.DATABASE_USER || "root";
 const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD || "";
 const DATABASE_NAME = process.env.DATABASE_NAME || "";
+const DATABASE_FILENAME  = process.env.DATABASE_FILENAME || "";
 
 // console.log(DATABASE_HOST, DATABASE_PORT, DATABASE_USER, DATABASE_PASSWORD);
 const knexConfig = {
-  client: 'mysql',
+  client: 'sqlite3',
+  useNullAsDefault: true,
   connection: {
-    host: DATABASE_HOST,
-    port: DATABASE_PORT,
-    user: DATABASE_USER,
-    password: DATABASE_PASSWORD,
-    database: DATABASE_NAME,
+    filename: DATABASE_FILENAME
   },
 migrations: {
-  tableName: 'knex_migrations',
-  directory: './knex/migrations'
+  tableName: 'knex_migrations_sqlite',
+  directory: './knex/sqlite/migrations/'
 },
 seeds: {
-  tableName: 'knex_seeds',
-  directory: './knex/seeds',
+  tableName: 'knex_seeds_sqlite',
+  directory: './knex/sqlite/seeds/',
 }
 }
 
