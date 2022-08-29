@@ -37,26 +37,26 @@ socket.on("ERROR_CHAT", (msg) => {
 
 const postProducto = () => {
   console.log("PRODUCTO");
-  const title = document.getElementById("nombre");
-  const price = document.getElementById("precio");
+  const nombre = document.getElementById("nombre");
+  const precio = document.getElementById("precio");
   const thumbnail = document.getElementById("thumbnail");
 
   socket.emit("POST_PRODUCTO", {
-    title: title.value,
-    price: price.value,
+    nombre: nombre.value,
+    precio: precio.value,
     thumbnail: thumbnail.value,
   });
 
-  title.value = "";
-  price.value = "";
+  nombre.value = "";
+  precio.value = "";
   thumbnail.value = "";
 };
 
 const appendProducto = (msg) => {
   document.getElementById("producto-lista").innerHTML += `
         <tr>
-          <td>${msg.title}</td>
-          <td>${msg.price}</td>
+          <td>${msg.nombre}</td>
+          <td>${msg.precio}</td>
           <td><img class='table-img' src=${msg.thumbnail} alt=""></td>
         </tr>
     `;
@@ -74,3 +74,4 @@ const appendMsg = (msg) => {
   </div>
     `;
 };
+

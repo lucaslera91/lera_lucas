@@ -12,15 +12,17 @@ module.exports = class ApiManager {
     this.filepath = filepath;
   }
 
-  async getProductos(req, res) {
+  async getProductos(req, res, next, option = false) {
     try {
       const auxProd = await database(tableName).select();
-      console.log(auxProd);
+      console.log('option', option);
       //return res.json({ productos: auxProd });
-      return res.render("./productos/productos", { productos: auxProd });
+      option
+        ? res.json({ productos: auxProd })
+        : res.render("./productos/productos", { productos: auxProd });
     } catch (error) {
       console.log(error);
-      return res.json({ productos: error });
+      //return res.json({ productos: error });
     }
   }
 

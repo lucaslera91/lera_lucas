@@ -4,7 +4,6 @@ const routerProductos = express.Router();
 const filepath = "productos.txt";
 const knex = require("knex");
 const knexConfig = require("../knexfileMySql");
-const { CLIENT_LONG_FLAG } = require("mysql/lib/protocol/constants/client");
 const database = knex(knexConfig);
 const tableName = "productos";
 const productManager = new ProductManager(filepath);
