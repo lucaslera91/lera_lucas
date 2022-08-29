@@ -37,8 +37,8 @@ socket.on("ERROR_CHAT", (msg) => {
 
 const postProducto = () => {
   console.log("PRODUCTO");
-  const title = document.getElementById("title");
-  const price = document.getElementById("price");
+  const title = document.getElementById("nombre");
+  const price = document.getElementById("precio");
   const thumbnail = document.getElementById("thumbnail");
 
   socket.emit("POST_PRODUCTO", {

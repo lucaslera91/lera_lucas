@@ -11,11 +11,19 @@ module.exports = class ApiManager {
   constructor(filepath) {
     this.filepath = filepath;
   }
+
   async getProductos(req, res) {
-    const productos = await database(tableName).select();
-    console.log(productos);
-    return res.json({ productos });
+    try {
+      const auxProd = await database(tableName).select();
+      console.log(auxProd);
+      //return res.json({ productos: auxProd });
+      return res.render("./productos/productos", { productos: auxProd });
+    } catch (error) {
+      console.log(error);
+      return res.json({ productos: error });
+    }
   }
+
   async getProducto(req, res) {
     try {
       const producto = await database(tableName).where("id", req.params.id);
